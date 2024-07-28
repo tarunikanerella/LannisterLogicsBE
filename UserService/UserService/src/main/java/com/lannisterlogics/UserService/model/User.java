@@ -28,7 +28,9 @@ public class User {
     private String revenue;
 
     //needs to be mapped via foreign key to Address table with userId - one to one
-    private Long addressId;
+    @OneToOne
+    @JoinColumn(name = "address_id", nullable = false)
+    private Address address;
 
     private String founderName;
 
@@ -42,7 +44,4 @@ public class User {
 
     private String noOfDirectors;
 
-    private Boolean existingBorrowing;
-
-    private String existingBorrowingAmount;
 }
