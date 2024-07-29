@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "businessId"))
 public class User {
 
     @Id
@@ -18,6 +19,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private Long businessId;
 
     //needs to be mapped via foreign key to Platform table with platformId - one to one

@@ -6,6 +6,8 @@ import com.lannisterlogics.UserService.model.User;
 import com.lannisterlogics.UserService.model.UserRequest;
 import com.lannisterlogics.UserService.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,29 +28,42 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public User createUserWithAddress(@RequestBody UserRequest userRequest) {
-        System.out.println(userRequest);
-        User user = new User();
-        user.setBusinessId(userRequest.getBusinessId());
-        user.setPlatformId(userRequest.getPlatformId());
-        user.setBusinessName(userRequest.getBusinessName());
-        user.setRevenue(userRequest.getRevenue());
-        user.setFounderName(userRequest.getFounderName());
-        user.setDOB(userRequest.getDOB());
-        user.setLegalStructure(userRequest.getLegalStructure());
-        user.setContact(userRequest.getContact());
-        user.setBusinessEmail(userRequest.getBusinessEmail());
-        user.setNoOfDirectors(userRequest.getNoOfDirectors());
+    public ResponseEntity<String> createUserWithAddress(@RequestBody UserRequest userRequest) {
+        try {
+            System.out.println(userRequest);
 
-        Address address = new Address();
-        address.setPostalCode(userRequest.getPostalCode());
-        address.setHouseNo(userRequest.getHouseNo());
-        address.setCountry(userRequest.getCountry());
-        address.setYearsOfLiving(userRequest.getYearsOfLiving());
+            // Create User entity
+            User user = new User();
+            user.setBusinessId(userRequest.getBusinessId());
+            user.setPlatformId(userRequest.getPlatformId());
+            user.setBusinessName(userRequest.getBusinessName());
+            user.setRevenue(userRequest.getRevenue());
+            user.setFounderName(userRequest.getFounderName());
+            user.setDOB(userRequest.getDOB());
+            user.setLegalStructure(userRequest.getLegalStructure());
+            user.setContact(userRequest.getContact());
+            user.setBusinessEmail(userRequest.getBusinessEmail());
+            user.setNoOfDirectors(userRequest.getNoOfDirectors());
 
-        return userService.saveUserWithAddress(user, address);
+            // Create Address entity
+            Address address = new Address();
+            address.setPostalCode(userRequest.getPostalCode());
+            address.setHouseNo(userRequest.getHouseNo());
+            address.setCountry(userRequest.getCountry());
+            address.setYearsOfLiving(userRequest.getYearsOfLiving());
+
+            // Save user and address
+            userService.saveUserWithAddress(user, address);
+
+            return ResponseEntity.ok("User successfully created.");
+        } catch (DataIntegrityViolationException e) {
+            // Handle duplicate entry error
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Duplicate businessId. A user with this businessId already exists.");
+        } catch (Exception e) {
+            // Handle any other errors
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
+        }
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserProfile(@PathVariable Long id) {
         try {
