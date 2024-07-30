@@ -30,6 +30,14 @@ public class PaymentService {
 
         boolean paymentProcessed = simulatePaymentProcessing(amount, dateOfTransaction);
 
+        if(paymentProcessed==true)
+        {
+            status = "PAID";
+        }
+        else
+        {
+            status = "FAILED";
+        }
 
         Transaction transaction = new Transaction();
         transaction.setPayerId(payerId);
@@ -86,6 +94,7 @@ public class PaymentService {
         loan.ifPresent(loan1 -> loan1.setOutstandingPrincipal(outstandingPrincipalAmt));
         if(loan.isPresent())
         {
+            loanRepository.deleteById(loanId);
             loanRepository.save(loan.get());
         }
 
