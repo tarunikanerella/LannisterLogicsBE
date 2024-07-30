@@ -12,15 +12,11 @@ import lombok.NoArgsConstructor;
 @Entity
 public class MasterLoan {
 
-    @Id
+     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Double productMargin;
-
-    @JsonIgnore
-    @OneToOne(mappedBy = "loanType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Loan loan;
 
     private Double platformMargin;
 
