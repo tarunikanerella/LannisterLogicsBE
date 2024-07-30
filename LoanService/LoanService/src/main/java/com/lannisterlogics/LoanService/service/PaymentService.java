@@ -68,8 +68,8 @@ public class PaymentService {
        }
        Long outstandingPrincipal = loan.get().getOutstandingPrincipal();
        Long initialPrincipal = loan.get().getInitialPrincipal();
-      Integer term =   loan.get().getTermYear();
-      Integer annualInterestRate           = loan.get().getInterest(); // interestRate
+       Integer term =   loan.get().getTermYear();
+       Integer annualInterestRate           = loan.get().getInterest(); // interestRate
 
        // do the calculation for installment amount
 
@@ -84,6 +84,11 @@ public class PaymentService {
         Long outstandingPrincipalAmt = outstandingPrincipal -( initialPrincipal/term);
         loan.ifPresent(loan1 -> loan1.setInterestAmount(finalInterestAmount));
         loan.ifPresent(loan1 -> loan1.setOutstandingPrincipal(outstandingPrincipalAmt));
+        if(loan.isPresent())
+        {
+            loanRepository.save(loan.get());
+        }
+
         return amountToPay;
     }
 }
