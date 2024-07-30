@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -29,9 +30,9 @@ public class Transaction {
     @JoinColumn(name = "loan_id", nullable = false)
     private Loan loan;
 
-    private LocalDate dateOfTransaction;
+    private LocalDateTime dateOfTransaction;
 
-    private Long amount;
+    private Double amount;
 
     private String status;
 

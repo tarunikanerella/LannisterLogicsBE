@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -45,7 +46,7 @@ public class Loan {
 
     @JsonIgnore
     @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Transaction transaction;
+    private List<Transaction> transaction;
 
     private Boolean existingBorrowing;
 
