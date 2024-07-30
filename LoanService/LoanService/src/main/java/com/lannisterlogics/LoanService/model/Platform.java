@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 public class Platform {
-
-    @Id
+ @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -27,9 +26,5 @@ public class Platform {
     private String businessEmail;
 
     private String legalStructure;
-
-    @JsonIgnore
-    @OneToOne(mappedBy = "platform", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Loan loan;
 
 }
