@@ -28,8 +28,4 @@ public class Platform {
 
     private String legalStructure;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "platform", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Loan loan;
-
 }
