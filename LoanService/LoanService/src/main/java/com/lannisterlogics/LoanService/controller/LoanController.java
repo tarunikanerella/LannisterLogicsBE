@@ -24,7 +24,7 @@ public class LoanController {
         return new ResponseEntity<>(loanList, HttpStatus.OK);
     }
 
-    @GetMapping("/{custId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<List<Loan>> getLoanByCustId(@PathVariable Long userId) {
         List<Loan> loan = loanService.getLoanByCustId(userId);
         if (loan != null) {
