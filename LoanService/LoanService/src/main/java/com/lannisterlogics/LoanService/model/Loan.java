@@ -1,5 +1,6 @@
 package com.lannisterlogics.LoanService.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,6 +43,7 @@ public class Loan {
     @JoinColumn(name = "platform_id", nullable = false)
     private Platform platform;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Transaction transaction;
 

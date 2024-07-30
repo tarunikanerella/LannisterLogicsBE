@@ -1,5 +1,6 @@
 package com.lannisterlogics.LoanService.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +28,7 @@ public class Platform {
 
     private String legalStructure;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "platform", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Loan loan;
 

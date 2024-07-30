@@ -44,6 +44,4 @@ public class User {
 
     private String businessEmail;
 
-    private String noOfDirectors;
-
 }

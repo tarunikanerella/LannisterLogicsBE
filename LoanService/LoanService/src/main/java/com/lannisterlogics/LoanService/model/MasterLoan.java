@@ -1,5 +1,6 @@
 package com.lannisterlogics.LoanService.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +18,7 @@ public class MasterLoan {
 
     private Double productMargin;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "loantype", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Loan loan;
 

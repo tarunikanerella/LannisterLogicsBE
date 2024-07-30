@@ -15,7 +15,6 @@ public class UserRequest {
     private String legalStructure;
     private String contact;
     private String businessEmail;
-    private String noOfDirectors;
 
     private String postalCode;
     private String houseNo;

@@ -1,5 +1,6 @@
 package com.lannisterlogics.LoanService.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,6 +31,7 @@ public class User {
     //needs to be mapped via foreign key to Address table with userId - one to one
     private Long addressId;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Loan loan;
 

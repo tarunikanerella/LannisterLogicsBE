@@ -43,7 +43,6 @@ public class UserController {
             user.setLegalStructure(userRequest.getLegalStructure());
             user.setContact(userRequest.getContact());
             user.setBusinessEmail(userRequest.getBusinessEmail());
-            user.setNoOfDirectors(userRequest.getNoOfDirectors());
 
             // Create Address entity
             Address address = new Address();
