@@ -16,13 +16,11 @@ import java.util.List;
 @Entity
 public class Loan {
 
-    @Id
+   @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "loantype_id", nullable = false)
-    private MasterLoan loanType;
+    private String loanType;
 
     private Integer termYear;
 
@@ -34,15 +32,15 @@ public class Loan {
 
     private Long interestAmount;
 
+    private Integer outstandingTerm;
+
     private LocalDate dateOfApplication;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToOne
-    @JoinColumn(name = "platform_id", nullable = false)
-    private Platform platform;
+    private Long platform;
 
     @JsonIgnore
     @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
