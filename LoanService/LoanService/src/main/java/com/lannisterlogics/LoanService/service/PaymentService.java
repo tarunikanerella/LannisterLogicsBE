@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PaymentService {
@@ -56,6 +57,34 @@ public class PaymentService {
 
         return transactionrepository.findByPayerIdOrPayeeId(userId, userId);
 
+    }
+
+    public Double getInstallmentAmount(Long loanId) {
+       Optional<Loan> loan =  loanRepository.findById(loanId);
+       Long interestAmount = loan.get().getInterestAmount();
+       if(interestAmount==null)
+       {
+           interestAmount = 0L;
+       }
+       Long outstandingPrincipal = loan.get().getOutstandingPrincipal();
+       Long initialPrincipal = loan.get().getInitialPrincipal();
+      Integer term =   loan.get().getTermYear();
+      Integer annualInterestRate           = loan.get().getInterest(); // interestRate
+
+       // do the calculation for installment amount
+
+        // outstanding principal = OutstandingPrincipal - (intialPrincipal)/InitialTerm;
+
+        double monthlyInterestRate = annualInterestRate / 12 / 100;
+        double amountToPay = (outstandingPrincipal * monthlyInterestRate) /
+                (1 - Math.pow(1 + monthlyInterestRate, -term));
+        interestAmount = (long) (interestAmount + amountToPay);
+
+        Long finalInterestAmount = interestAmount;
+        Long outstandingPrincipalAmt = outstandingPrincipal -( initialPrincipal/term);
+        loan.ifPresent(loan1 -> loan1.setInterestAmount(finalInterestAmount));
+        loan.ifPresent(loan1 -> loan1.setOutstandingPrincipal(outstandingPrincipalAmt));
+        return amountToPay;
     }
 }
 

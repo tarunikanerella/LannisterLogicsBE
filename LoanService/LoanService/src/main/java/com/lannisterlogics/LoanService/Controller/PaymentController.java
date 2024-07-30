@@ -38,4 +38,11 @@ public class PaymentController {
     public List<Transaction> getTransactionsByUserId(@PathVariable Long userId) {
         return paymentService.getTransactionsByUserId(userId);
     }
+
+    @GetMapping("/{loadId}")
+    public Double getAmount(@PathVariable Long loanId) {
+
+        return paymentService.getInstallmentAmount(loanId);
+    }
+
 }
