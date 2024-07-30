@@ -51,4 +51,6 @@ public class Loan {
 
     private String existingBorrowingAmount;
 
+    private String status;
+
 }
