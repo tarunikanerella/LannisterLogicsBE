@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -16,44 +16,45 @@ import java.util.List;
 @Entity
 public class Loan {
 
-   @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    private String loanType;
+ @Id
+ @GeneratedValue(strategy = GenerationType.IDENTITY)
+ private Long id;
 
-    private Integer termYear;
+ private String loanType;
 
-    private Long initialPrincipal;
+ private Integer termYear;
 
-    private Long outstandingPrincipal;
+ private Long initialPrincipal;
 
-    private Integer interest;
+ private Long outstandingPrincipal;
 
-    private Long interestAmount;
+ private Integer interest;
 
-    private Integer outstandingTerm;
+ private Long interestAmount;
 
-    private LocalDate dateOfApplication;
+ private Integer outstandingTerm;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+ private LocalDateTime dateOfApplication;
 
-    private Long platform;
+ @ManyToOne
+ @JoinColumn(name = "user_id", nullable = false)
+ private User user;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Transaction> transaction;
+ private Long platform;
 
-    private Boolean existingBorrowing;
+ @JsonIgnore
+ @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+ private List<Transaction> transaction;
 
-    private String existingBorrowingAmount;
+ private Boolean existingBorrowing;
 
-    private String status;
+ private String existingBorrowingAmount;
 
-    private String netProfit;
+ private String status;
 
-    private String businessCreditScore;
+ private String netProfit;
+
+ private String businessCreditScore;
 
 }

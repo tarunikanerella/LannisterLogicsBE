@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class MasterLoan {
 
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
