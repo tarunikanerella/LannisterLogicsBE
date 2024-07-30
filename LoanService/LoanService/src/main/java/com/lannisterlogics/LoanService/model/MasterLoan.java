@@ -19,7 +19,7 @@ public class MasterLoan {
     private Double productMargin;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "loantype", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "loanType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Loan loan;
 
     private Double platformMargin;
